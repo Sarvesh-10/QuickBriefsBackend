@@ -4,9 +4,6 @@ import nltk
 import json
 from newsapi.newsapi_client import NewsApiClient
 import newspaper
-from sanic import Sanic
-
-app = Sanic()
 
 
 from newspaper import Article
@@ -69,11 +66,11 @@ def summarize(listOfNews):
 
 
 @app.route('/')
-async def index():
+def index():
     return "<h1>Add /sports or /business or /general or /health or /technology or /science</h1>"
 
 @app.route('/get/<cat>')
-async def getNews(cat):
+def getNews(cat):
     newsData = Newsapi.get_top_headlines(language='en',category=cat)
     listOfNews = formData(newsData=newsData)
     listOfNews = summarize(listOfNews=listOfNews)
@@ -90,6 +87,8 @@ async def getNews(cat):
 
 
 
+if __name__ == "__main__":
+    app.run()
 
 
 
