@@ -4,12 +4,11 @@ import nltk
 import json
 from newsapi.newsapi_client import NewsApiClient
 import newspaper
-
-
 from newspaper import Article
 nltk.download('punkt')
 Newsapi = NewsApiClient(api_key='cc10ab289d7a4bfaae76a9874cd6ee43')
 
+app = Flask(__name__)
 
 class News:
     author = 'Unknown'
@@ -39,7 +38,6 @@ class NewsEncoder(json.JSONEncoder):
 
 
 
-app = Flask(__name__)
 
 def formData(newsData):
     listOfNews = []
