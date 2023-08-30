@@ -69,11 +69,11 @@ def summarize(listOfNews):
 
 
 @app.route('/')
-def index():
+async def index():
     return "<h1>Add /sports or /business or /general or /health or /technology or /science</h1>"
 
 @app.route('/get/<cat>')
-def getNews(cat):
+async def getNews(cat):
     newsData = Newsapi.get_top_headlines(language='en',category=cat)
     listOfNews = formData(newsData=newsData)
     listOfNews = summarize(listOfNews=listOfNews)
