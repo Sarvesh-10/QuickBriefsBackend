@@ -4,6 +4,9 @@ import nltk
 import json
 from newsapi.newsapi_client import NewsApiClient
 import newspaper
+from sanic import Sanic
+
+app = Sanic()
 
 
 from newspaper import Article
@@ -87,8 +90,6 @@ def getNews(cat):
 
 
 
-if __name__ == "__main__":
-    app.run()
 
 
 
