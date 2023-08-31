@@ -50,6 +50,8 @@ def formData(newsData):
 
 def summarize(listOfNews):
     for news in listOfNews:
+        if(news.url is None):
+            continue
         try:
             article = Article(news.url)
             article.download()
