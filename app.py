@@ -6,8 +6,9 @@ from newsapi.newsapi_client import NewsApiClient
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 import newspaper
 
-tokenizer = AutoTokenizer.from_pretrained("Yale-LILY/brio-cnndm-uncased")
-model = AutoModelForSeq2SeqLM.from_pretrained("Yale-LILY/brio-cnndm-uncased")
+tokenizer = AutoTokenizer.from_pretrained("facebook/bart-large-cnn")
+model = AutoModelForSeq2SeqLM.from_pretrained("facebook/bart-large-cnn")
+
 from newspaper import Article
 nltk.download('punkt')
 Newsapi = NewsApiClient(api_key='cc10ab289d7a4bfaae76a9874cd6ee43')
