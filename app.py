@@ -3,9 +3,11 @@ import requests
 import nltk
 import json
 from newsapi.newsapi_client import NewsApiClient
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 import newspaper
 
-
+tokenizer = AutoTokenizer.from_pretrained("Yale-LILY/brio-cnndm-uncased")
+model = AutoModelForSeq2SeqLM.from_pretrained("Yale-LILY/brio-cnndm-uncased")
 from newspaper import Article
 nltk.download('punkt')
 Newsapi = NewsApiClient(api_key='cc10ab289d7a4bfaae76a9874cd6ee43')
@@ -48,16 +50,26 @@ def formData(newsData):
     return listOfNews
 
 
+def summarize_text(text):
+    # Tokenize the input text
+    inputs = tokenizer(text, return_tensors="pt", max_length=1024, truncation=True)
+    
+    # Generate the summary
+    summary_ids = model.generate(inputs["input_ids"], max_length=150, min_length=50, length_penalty=2.0, num_beams=4, early_stopping=True)
+    
+    # Decode the summary back to text
+    summary = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
+    
+    return summary
+
+
 def summarize(listOfNews):
     for news in listOfNews:
         if(news.url is None):
             continue
         try:
-            article = Article(news.url)
-            article.download()
-            article.parse()
-            article.nlp()
-            news.summarizeNews = article.summary
+            news.summarizeNews = summarize_text(news.description)
+            
         except newspaper.ArticleException:
             print(newspaper.ArticleException.__name__)
             news.summarizeNews = news.description
