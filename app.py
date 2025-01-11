@@ -3,15 +3,16 @@ import requests
 import nltk
 import json
 from newsapi.newsapi_client import NewsApiClient
-from transformers import T5Tokenizer, T5ForConditionalGeneration
+from transformers import BertTokenizer, BertForSequenceClassification
+
+tokenizer = BertTokenizer.from_pretrained("huawei-noah/TinyBERT_General_4L_312D")
+model = BertForSequenceClassification.from_pretrained("huawei-noah/TinyBERT_General_4L_312D")
+
 
 # Load model and tokenizer
 
 import newspaper
 
-model_name = "t5-small"
-tokenizer = T5Tokenizer.from_pretrained(model_name)
-model = T5ForConditionalGeneration.from_pretrained(model_name)
 
 Newsapi = NewsApiClient(api_key='cc10ab289d7a4bfaae76a9874cd6ee43')
 
