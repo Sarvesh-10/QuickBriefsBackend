@@ -3,10 +3,10 @@ import requests
 import nltk
 import json
 from newsapi.newsapi_client import NewsApiClient
-from transformers import GPT2Tokenizer, GPT2LMHeadModel
+from transformers import BertTokenizer, BertLMHeadModel
 
-tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
-model = GPT2LMHeadModel.from_pretrained("gpt2")
+tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
+model = BertLMHeadModel.from_pretrained("bert-base-uncased")
 
 
 # Load model and tokenizer
